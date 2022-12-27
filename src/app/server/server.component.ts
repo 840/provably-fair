@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Game } from '../game/game.model'
+import { Game } from '../games/game/game.model'
+import { GameService } from '../games/game/game.service'
 import { ProvablyFairService } from '../provably-fair/provably-fair.service'
 
 import Utils from '../utils'
@@ -21,14 +22,15 @@ export class ServerComponent implements OnInit {
     public serverSeed: string = ''
     public nonce: number = -1
 
-    constructor(private provablyFairService: ProvablyFairService) { }
+    constructor(
+        private provablyFairService: ProvablyFairService,
+        private gameService: GameService
+    ) { }
 
     ngOnInit() {
         this.subscribeGame()
-        this.nonce += 1
-        this.provablyFairService.setNonce(this.nonce)
-        this.serverSeed = Utils.generateRandomSeed()
-        this.provablyFairService.setServerSeed(this.serverSeed)
+        this.provablyFairService.incrementNonce()
+        this.provablyFairService.generateServerSeed()
     }
 
     getServerSeedHash(): string {
@@ -40,7 +42,7 @@ export class ServerComponent implements OnInit {
     }
 
     subscribeGame(): void {
-        this.provablyFairService.subscribeGame()
+        this.gameService.subscribeGame()
             .subscribe((value: Game) => { 
                 this.serverSeed = value.serverSeed
                 this.nonce = value.nonce

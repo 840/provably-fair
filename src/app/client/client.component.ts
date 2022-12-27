@@ -1,5 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core'
-import { Game } from '../game/game.model'
+import { Game } from '../games/game/game.model'
+import { GameService } from '../games/game/game.service'
 import { ProvablyFairService } from '../provably-fair/provably-fair.service'
 import Utils from '../utils'
 
@@ -17,7 +18,10 @@ import Utils from '../utils'
 export class ClientComponent implements OnInit {
     public clientSeed: string = ''
 
-    constructor(private provablyFairService: ProvablyFairService) { }
+    constructor(
+        private provablyFairService: ProvablyFairService,
+        private gameService: GameService
+    ) { }
 
     ngOnInit() {
         this.subscribeGame()
@@ -30,7 +34,7 @@ export class ClientComponent implements OnInit {
     }
 
     subscribeGame(): void {
-        this.provablyFairService.subscribeGame()
+        this.gameService.subscribeGame()
             .subscribe((value: Game) => this.clientSeed = value.clientSeed)
     }
 }

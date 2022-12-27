@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { ProvablyFairService } from '../provably-fair/provably-fair.service'
+import { Component, OnInit } from '@angular/core'
+import { GameService } from '../game/game.service'
 import { GameResult } from './game-result.model'
 
 @Component({
@@ -32,14 +32,14 @@ import { GameResult } from './game-result.model'
 export class GameResultComponent implements OnInit {
     public gameResults: GameResult[]
 
-    constructor(private provablyFairService: ProvablyFairService) { }
+    constructor(private gameService: GameService) { }
 
     ngOnInit(): void {
         this.subscribeGameResults()
     }
 
     subscribeGameResults(): void {
-        this.provablyFairService.subscribeGameResults()
+        this.gameService.subscribeGameResults()
             .subscribe((value: GameResult[]) => this.gameResults = [...value].reverse())
     }
 }
