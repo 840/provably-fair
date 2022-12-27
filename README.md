@@ -1,5 +1,7 @@
 # Provably Fair
 
+[![Build](https://github.com/840/provably-fair/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/840/provably-fair/actions/workflows/build-and-deploy.yml)
+
 Sandbox for learning [Angular](https://angular.io) by implementing Provably Fair
 
 ## What is Provably Fair
