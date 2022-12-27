@@ -6,7 +6,6 @@ import { ServerComponent } from './server/server.component';
 import { ClientComponent } from './client/client.component';
 import { GameResultComponent } from './games/game-result/game-result.component';
 import { GameRngComponent } from './games/game-rng/game-rng.component';
-import { GameComponent } from "./games/game/game.component";
 
 @NgModule({
     declarations: [
@@ -14,8 +13,7 @@ import { GameComponent } from "./games/game/game.component";
         ServerComponent,
         ClientComponent,
         GameResultComponent,
-        GameRngComponent,
-        GameComponent
+        GameRngComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
