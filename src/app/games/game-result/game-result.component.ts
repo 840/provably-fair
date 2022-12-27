@@ -15,7 +15,7 @@ import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootst
 export class GameResultComponent implements OnInit {
     public gameResults: GameResult[] = []
     public gameResultsDisplay: GameResult[]
-    public gameResultsSize: number = 1
+    public gameResultsSize = 1
     public page = 1;
     public pageSize = 10;
 
@@ -37,9 +37,9 @@ export class GameResultComponent implements OnInit {
 
     refreshGameResults(): void {
         this.gameResultsDisplay = this.gameResults.map((gameResult) => ( gameResult )).slice(
-			(this.page - 1) * this.pageSize,
-			(this.page - 1) * this.pageSize + this.pageSize,
-		);
+            (this.page - 1) * this.pageSize,
+            (this.page - 1) * this.pageSize + this.pageSize,
+        );
         this.gameService.getGameResults()
     }
 }

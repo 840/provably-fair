@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProvablyFairService } from '../provably-fair/provably-fair.service'
 
 @Component({
-  selector: 'app-server',
-  template: `
+    selector: 'app-server',
+    template: `
     <p>
         Server seed (hash): {{ getServerSeedHash() }}
     </p>
@@ -11,7 +11,7 @@ import { ProvablyFairService } from '../provably-fair/provably-fair.service'
         Nonce: {{ getNonce() }}
     </p>
   `,
-  styles: []
+    styles: []
 })
 export class ServerComponent implements OnInit {
     constructor(private provablyFairService: ProvablyFairService) { }

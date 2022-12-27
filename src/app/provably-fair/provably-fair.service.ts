@@ -9,9 +9,7 @@ import Utils from '../utils'
 export class ProvablyFairService {
     private _clientSeed: string
     private _serverSeed: string
-    private _nonce: number = 0
-
-    constructor() { }
+    private _nonce = 0
 
     public getClientSeed(): string {
         return this._clientSeed

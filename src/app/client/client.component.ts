@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Game } from '../games/game/game.model'
 import { GameService } from '../games/game/game.service'
 import { ProvablyFairService } from '../provably-fair/provably-fair.service'
@@ -14,9 +14,9 @@ import Utils from '../utils'
   `,
     styles: []
 })
-@Injectable({ providedIn: 'root' })
+
 export class ClientComponent implements OnInit {
-    public clientSeed: string = ''
+    public clientSeed = ''
 
     constructor(
         private provablyFairService: ProvablyFairService,
@@ -28,8 +28,10 @@ export class ClientComponent implements OnInit {
         this.generateRandomSeed()
     }
 
-    onKey(event: any) {
-        this.provablyFairService.setClientSeed(event.target.value)
+    onKey(event: KeyboardEvent) {
+        if (event.target instanceof HTMLInputElement) {
+            this.provablyFairService.setClientSeed(event.target.value)
+        }
     }
 
     generateRandomSeed(): void {

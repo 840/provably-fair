@@ -5,7 +5,7 @@ import { GameResult } from '../game-result/game-result.model'
 import { Game } from './game.model'
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class GameService {
     private _gameSubject = new Subject<Game>()
