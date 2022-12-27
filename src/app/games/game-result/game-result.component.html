@@ -1,0 +1,48 @@
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            Results
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Roll</th>
+                        <th>Client seed</th>
+                        <th>Server seed</th>
+                        <th>Server seed (hash)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let gameResult of gameResultsDisplay">
+                        <th>{{gameResult.nonce}}</th>
+                        <td>{{gameResult.date}}</td>
+                        <td>{{gameResult.roll}}</td>
+                        <td>{{gameResult.clientSeed}}</td>
+                        <td>{{gameResult.serverSeed}}</td>
+                        <td>{{gameResult.serverSeedHash}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between p-2">
+                <ngb-pagination
+                    [collectionSize]="gameResultsSize"
+                    [(page)]="page"
+                    [pageSize]="pageSize"
+                    (pageChange)="refreshGameResults()"
+                >
+                </ngb-pagination>
+            
+                <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshGameResults()">
+                    <option [ngValue]="10">10 items per page</option>
+                    <option [ngValue]="25">25 items per page</option>
+                    <option [ngValue]="50">50 items per page</option>
+                    <option [ngValue]="100">100 items per page</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

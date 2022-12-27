@@ -24,6 +24,9 @@
       "ES2022",
       "dom"
     ],
+    "types": [
+      "@angular/localize"
+    ],
     "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {

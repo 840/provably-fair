@@ -9,7 +9,7 @@ import Utils from '../utils'
     template: `
     <p>
         Client seed: <input (keyup)="onKey($event)" value="{{ clientSeed }}">
-        <button (click)="generateRandomSeed()">Generate random client seed</button>
+        <button class="btn btn-primary" (click)="generateRandomSeed()">Generate random client seed</button>
     </p>
   `,
     styles: []
