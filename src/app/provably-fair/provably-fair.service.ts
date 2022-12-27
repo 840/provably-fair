@@ -21,7 +21,7 @@ export class ProvablyFairService {
         this._clientSeed = value
     }
 
-    public getServerSeed(): string {
+    public getServerSeedHash(): string {
         return Utils.hashSeed(this._serverSeed)
     }
 

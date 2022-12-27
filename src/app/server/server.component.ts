@@ -22,7 +22,7 @@ export class ServerComponent implements OnInit {
     }
 
     getServerSeedHash(): string {
-        return this.provablyFairService.getServerSeed()
+        return this.provablyFairService.getServerSeedHash()
     }
 
     getNonce(): number {

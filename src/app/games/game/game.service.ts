@@ -39,7 +39,7 @@ export class GameService {
 
     debug(): void {
         console.log(`Client seed: ${this.provablyFairService.getClientSeed()}`)
-        console.log(`Server seed (hash): ${Utils.hashSeed(this.provablyFairService.getServerSeed())}`)
+        console.log(`Server seed (hash): ${Utils.hashSeed(this.provablyFairService.getServerSeedHash())}`)
         console.log(`Nonce: ${this.provablyFairService.getNonce()}`)
     }
 }
