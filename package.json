@@ -6,6 +6,7 @@
     "start": "ng serve",
     "start:poll": "ng serve --poll=10000",
     "build": "ng build",
+    "build-github-pages": "ng build --base-href=/provably-fair/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
