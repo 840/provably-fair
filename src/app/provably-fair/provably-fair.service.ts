@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HmacSHA512, enc } from 'crypto-js'
+import { SHA256, HmacSHA512, enc } from 'crypto-js'
 import { GameResult } from '../games/game-result/game-result.model'
 import Utils from '../utils'
 
@@ -22,7 +22,7 @@ export class ProvablyFairService {
     }
 
     public getServerSeedHash(): string {
-        return Utils.hashSeed(this._serverSeed)
+        return SHA256(this._serverSeed).toString()
     }
 
     public getNonce(): number {
@@ -40,7 +40,7 @@ export class ProvablyFairService {
             serverSeed: this._serverSeed,
             nonce: this._nonce,
             roll: this.roll(),
-            serverSeedHash: Utils.hashSeed(this._serverSeed),
+            serverSeedHash: this.getServerSeedHash(),
             date: (new Date()).toLocaleString('en-GB', {
                 year: 'numeric',
                 month: 'long',

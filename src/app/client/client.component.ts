@@ -9,10 +9,10 @@ import Utils from '../utils'
     template: `
     <p>
         Client seed: <input (keyup)="onKey($event)" value="{{ clientSeed }}">
+        <button (click)="generateRandomSeed()">Generate random client seed</button>
     </p>
   `,
-    styles: [
-    ]
+    styles: []
 })
 @Injectable({ providedIn: 'root' })
 export class ClientComponent implements OnInit {
@@ -25,12 +25,16 @@ export class ClientComponent implements OnInit {
 
     ngOnInit() {
         this.subscribeGame()
-        this.clientSeed = Utils.generateRandomSeed()
-        this.provablyFairService.setClientSeed(this.clientSeed)
+        this.generateRandomSeed()
     }
 
     onKey(event: any) {
         this.provablyFairService.setClientSeed(event.target.value)
+    }
+
+    generateRandomSeed(): void {
+        this.clientSeed = Utils.generateRandomSeed()
+        this.provablyFairService.setClientSeed(this.clientSeed)
     }
 
     subscribeGame(): void {

@@ -5,14 +5,13 @@ import { ProvablyFairService } from '../provably-fair/provably-fair.service'
   selector: 'app-server',
   template: `
     <p>
-        Server seed (hash): <input disabled value="{{ getServerSeedHash() }}">
+        Server seed (hash): {{ getServerSeedHash() }}
     </p>
     <p>
-    Nonce: <input disabled value="{{ getNonce() }}">
+        Nonce: {{ getNonce() }}
     </p>
   `,
-  styles: [
-  ]
+  styles: []
 })
 export class ServerComponent implements OnInit {
     constructor(private provablyFairService: ProvablyFairService) { }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 import { ProvablyFairService } from 'src/app/provably-fair/provably-fair.service'
-import Utils from 'src/app/utils'
 import { GameResult } from '../game-result/game-result.model'
 import { Game } from './game.model'
 
@@ -39,7 +38,7 @@ export class GameService {
 
     debug(): void {
         console.log(`Client seed: ${this.provablyFairService.getClientSeed()}`)
-        console.log(`Server seed (hash): ${Utils.hashSeed(this.provablyFairService.getServerSeedHash())}`)
+        console.log(`Server seed (hash): ${this.provablyFairService.getServerSeedHash()}`)
         console.log(`Nonce: ${this.provablyFairService.getNonce()}`)
     }
 }
