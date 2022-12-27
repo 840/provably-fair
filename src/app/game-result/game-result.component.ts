@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core'
 import { ProvablyFairService } from '../provably-fair/provably-fair.service'
 import { GameResult } from './game-result.model'
 
 @Component({
-  selector: 'app-game-result',
+    selector: 'app-game-result',
     template: `
   <table>
     <tr>
@@ -24,13 +24,15 @@ import { GameResult } from './game-result.model'
     </tr>
 </table>
   `,
-  styles: [
-  ]
+    styles: [
+        'table { width: 100% }',
+        'table, th, td { border: 1px solid black; }'
+    ]
 })
 export class GameResultComponent implements OnInit {
     public gameResults: GameResult[]
 
-    constructor(private provablyFairService: ProvablyFairService) {}
+    constructor(private provablyFairService: ProvablyFairService) { }
 
     ngOnInit(): void {
         this.subscribeGameResults()
