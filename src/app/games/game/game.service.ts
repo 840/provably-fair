@@ -31,9 +31,10 @@ export class GameService {
         this._gameResultsSubject.next(this._gameResults)
     }
 
-    playGame(): void {
+    playGame(): GameResult {
         const result = this.provablyFairService.playGame()
         this.addGameResults(result)
+        return result
     }
 
     debug(): void {

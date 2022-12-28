@@ -6,13 +6,8 @@ import Utils from '../utils'
 
 @Component({
     selector: 'app-client',
-    template: `
-    <p>
-        Client seed: <input (keyup)="onKey($event)" value="{{ clientSeed }}">
-        <button class="btn btn-primary" (click)="generateRandomSeed()">Generate random client seed</button>
-    </p>
-  `,
-    styles: []
+    templateUrl: './client.component.html',
+    styleUrls: ['./client.component.scss']
 })
 
 export class ClientComponent implements OnInit {
@@ -25,7 +20,7 @@ export class ClientComponent implements OnInit {
 
     ngOnInit() {
         this.subscribeGame()
-        this.generateRandomSeed()
+        this.generateClientSeed()
     }
 
     onKey(event: KeyboardEvent) {
@@ -34,7 +29,7 @@ export class ClientComponent implements OnInit {
         }
     }
 
-    generateRandomSeed(): void {
+    generateClientSeed(): void {
         this.clientSeed = Utils.generateRandomSeed()
         this.provablyFairService.setClientSeed(this.clientSeed)
     }

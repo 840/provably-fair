@@ -7,6 +7,8 @@ import { GameService } from '../game/game.service'
     styleUrls: ['./game-rng.component.scss']
 })
 export class GameRngComponent {
+    public roll = 0
+
     constructor(private gameService: GameService) {}
 
     debug(): void {
@@ -14,6 +16,6 @@ export class GameRngComponent {
     }
 
     playGame(): void {
-        this.gameService.playGame()
+        this.roll = this.gameService.playGame().roll
     }
 }

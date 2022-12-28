@@ -4,12 +4,15 @@ import { ProvablyFairService } from '../provably-fair/provably-fair.service'
 @Component({
     selector: 'app-server',
     template: `
-    <p>
-        Server seed (hash): {{ getServerSeedHash() }}
-    </p>
-    <p>
-        Nonce: {{ getNonce() }}
-    </p>
+    <mat-form-field>
+        <mat-label>Server seed (hash)</mat-label>
+        <input matInput disabled value="{{ getServerSeedHash() }}">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Nonce</mat-label>
+        <input matInput disabled value="{{ getNonce() }}">
+    </mat-form-field>
   `,
     styles: []
 })

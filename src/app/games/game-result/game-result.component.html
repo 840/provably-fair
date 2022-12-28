@@ -1,48 +1,47 @@
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header">
-            Results
-        </div>
-        <div class="card-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Date</th>
-                        <th>Roll</th>
-                        <th>Client seed</th>
-                        <th>Server seed</th>
-                        <th>Server seed (hash)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let gameResult of gameResultsDisplay">
-                        <th>{{gameResult.nonce}}</th>
-                        <td>{{gameResult.date}}</td>
-                        <td>{{gameResult.roll}}</td>
-                        <td>{{gameResult.clientSeed}}</td>
-                        <td>{{gameResult.serverSeed}}</td>
-                        <td>{{gameResult.serverSeedHash}}</td>
-                    </tr>
-                </tbody>
-            </table>
+<mat-grid-tile-header>
+    <h3>Results</h3>
+</mat-grid-tile-header>
+<table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="nonce">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let gameResult"> {{gameResult.nonce}} </td>
+    </ng-container>
 
-            <div class="d-flex justify-content-between p-2">
-                <ngb-pagination
-                    [collectionSize]="gameResultsSize"
-                    [(page)]="page"
-                    [pageSize]="pageSize"
-                    (pageChange)="refreshGameResults()"
-                >
-                </ngb-pagination>
-            
-                <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshGameResults()">
-                    <option [ngValue]="10">10 items per page</option>
-                    <option [ngValue]="25">25 items per page</option>
-                    <option [ngValue]="50">50 items per page</option>
-                    <option [ngValue]="100">100 items per page</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
+    <ng-container matColumnDef="timestamp">
+        <th mat-header-cell *matHeaderCellDef> Timestamp </th>
+        <td mat-cell *matCellDef="let gameResult"> {{gameResult.date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="roll">
+        <th mat-header-cell *matHeaderCellDef> Roll </th>
+        <td mat-cell *matCellDef="let gameResult"> {{gameResult.roll}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientSeed">
+        <th mat-header-cell *matHeaderCellDef> Client seed </th>
+        <td mat-cell *matCellDef="let gameResult"> {{gameResult.clientSeed}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="serverSeed">
+        <th mat-header-cell *matHeaderCellDef> Server seed </th>
+        <td mat-cell *matCellDef="let gameResult"> {{gameResult.serverSeed}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="serverSeedHash">
+        <th mat-header-cell *matHeaderCellDef> Server seed (hash)</th>
+        <td mat-cell *matCellDef="let gameResult"> {{gameResult.serverSeedHash}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="verify">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let gameResult"><button mat-flat-button color="primary">Validate</button></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator showFirstLastButtons 
+            [pageSizeOptions]="[10]" 
+            aria-label="Select page">
+</mat-paginator>

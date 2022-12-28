@@ -1,4 +1,7 @@
-<app-game-input></app-game-input>
-<app-nav-bar></app-nav-bar>
-<app-game-result></app-game-result>
+<mat-grid-list cols="2" rowHeight="4:3" gutterSize="5px">
+    <mat-grid-tile><app-game-input></app-game-input></mat-grid-tile>
+    <mat-grid-tile><app-game-nav></app-game-nav></mat-grid-tile>
+    <mat-grid-tile colspan="2"><app-game-result></app-game-result></mat-grid-tile>
+</mat-grid-list>
+
 <router-outlet></router-outlet>
