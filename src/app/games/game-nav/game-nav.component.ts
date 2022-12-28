@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./game-nav.component.scss']
 })
 export class GameNavComponent {
-    links = ['Roll', 'Second', 'Third']
+    links = ['Dice']
     activeLink = this.links[0]
 }

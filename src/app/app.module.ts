@@ -5,7 +5,7 @@ import { AppComponent } from './app.component'
 import { ServerComponent } from './server/server.component'
 import { ClientComponent } from './client/client.component'
 import { GameResultComponent } from './games/game-result/game-result.component'
-import { GameRngComponent } from './games/game-rng/game-rng.component'
+import { GameDiceComponent } from './games/game-dice/game-dice.component'
 import { GameInputComponent } from './games/game-input/game-input.component'
 import { GameNavComponent } from './games/game-nav/game-nav.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -18,18 +18,19 @@ import { MatInputModule } from '@angular/material/input'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ToolbarComponent } from './toolbar/toolbar.component'
+import { ToolbarComponent } from './toolbar/toolbar.component';
+
 
 @NgModule({
     declarations: [
         AppComponent,
         ServerComponent,
         ClientComponent,
-        GameRngComponent,
         GameInputComponent,
         GameNavComponent,
         GameResultComponent,
-        ToolbarComponent
+        ToolbarComponent,
+        GameDiceComponent
     ],
     providers: [
         { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }

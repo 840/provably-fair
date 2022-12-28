@@ -1,0 +1,22 @@
+
+<div class="dice-slot-game">
+    <div id="column1" class="dice-slot-column">
+        <div class="dice-slot">{{ roll ? roll[0] : '0' }}</div>
+    </div>
+    <div id="column2" class="dice-slot-column">
+        <div class="dice-slot">{{ roll ? roll[1] : '0' }}</div>
+    </div>
+    <div id="dot">
+        .
+    </div>
+    <div id="column3" class="dice-slot-column">
+        <div class="dice-slot">{{ roll ? roll[2] : '0'}}</div>
+    </div>
+    <div id="column4" class="dice-slot-column">
+        <div class="dice-slot">{{ roll ? roll[3] : '0' }}</div>
+    </div>
+    <div class="dice-slot-buttons">
+        <button mat-flat-button color="primary" (click)="playGame()">Roll!</button>
+    </div>
+</div>
+

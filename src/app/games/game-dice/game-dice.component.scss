@@ -1,0 +1,53 @@
+.dice-slot-game {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+        "column1 column2 dot column3 column4"
+        "buttons buttons buttons buttons buttons";
+    padding-top: 100px;
+    padding-left: 400px;
+    padding-right: 400px;
+    row-gap: 3rem;
+    column-gap: 1rem;
+    text-align: center;
+}
+
+.dice-slot-buttons {
+    grid-area: buttons
+}
+
+.dice-slot-column {
+    border: 1px;
+    border-color: black;
+    border-style: solid;
+    padding: 2rem
+}
+
+.dice-slot {
+    font-size: xx-large;
+}
+
+#dot {
+    font-size: xx-large;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 3rem;
+}
+
+@media only screen and (max-width: 550px) {
+    .dice-slot-game {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 
+            "column1 column2 dot column3 column4"
+            "buttons buttons buttons buttons buttons";
+        padding-top: 100px;
+        padding-left: 0rem;
+        padding-right: 400px;
+        row-gap: 3rem;
+        column-gap: 1rem;
+        text-align: center;
+    }
+}
