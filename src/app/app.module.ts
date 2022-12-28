@@ -17,6 +17,8 @@ import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/mat
 import { MatInputModule } from '@angular/material/input'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ToolbarComponent } from './toolbar/toolbar.component'
 
 @NgModule({
     declarations: [
@@ -26,7 +28,8 @@ import { MatPaginatorModule } from '@angular/material/paginator'
         GameRngComponent,
         GameInputComponent,
         GameNavComponent,
-        GameResultComponent
+        GameResultComponent,
+        ToolbarComponent
     ],
     providers: [
         { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }
@@ -43,7 +46,8 @@ import { MatPaginatorModule } from '@angular/material/paginator'
         MatFormFieldModule,
         MatInputModule,
         MatGridListModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatToolbarModule
     ]
 })
 export class AppModule { }
