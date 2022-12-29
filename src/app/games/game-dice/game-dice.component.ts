@@ -64,7 +64,7 @@ export class GameDiceComponent {
     }
 
     playAnimStyle(duration: number, number: number): SlotAnimStyle {
-        this.fastMode ? duration = this.fastModeSpeed : duration = this.normalModeSpeed
+        this.fastMode ? duration = this.fastModeSpeed : duration
         const translateModifier = this.fastMode
             ? `translateY(-${number * this.slotSize}px)`
             : `translateY(-${number * this.slotSize - (duration - this.normalModeSpeed) * this.reelSize}px)`
