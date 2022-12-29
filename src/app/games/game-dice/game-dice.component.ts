@@ -28,19 +28,19 @@ export class GameDiceComponent {
     }
 
     playGame(): void {
-        const rollNumber = Math.ceil(this.gameService.playGame(4000).roll * 100).toString()
+        const rollNumber = Math.ceil(this.gameService.playGame(9000).roll * 100).toString()
         this.roll = rollNumber.padStart(4, '0')
         this.playAnim()
     }
 
     async playAnim(): Promise<void> {
-        this.slotsAnim1 = this.playAnimStyle(4, parseInt(this.roll[0]))
-        this.slotsAnim2 = this.playAnimStyle(3, parseInt(this.roll[1]))
-        this.slotsAnim3 = this.playAnimStyle(2, parseInt(this.roll[2]))
+        this.slotsAnim1 = this.playAnimStyle(3, parseInt(this.roll[0]))
+        this.slotsAnim2 = this.playAnimStyle(2, parseInt(this.roll[1]))
+        this.slotsAnim3 = this.playAnimStyle(1.5, parseInt(this.roll[2]))
         this.slotsAnim4 = this.playAnimStyle(1, parseInt(this.roll[3]))
         
         this.toggleRollButton()
-        await new Promise(resolve => setTimeout(resolve, 4000))
+        await new Promise(resolve => setTimeout(resolve, 9000))
         this.resetAnim()
         this.toggleRollButton()
     }
@@ -54,8 +54,8 @@ export class GameDiceComponent {
 
     playAnimStyle(duration: number, number: number): SlotAnimStyle {
         return {
-            'transitionDuration': `${duration}s`,
-            'transform': `translateY(-${number * 30 - (duration - 4) * 300}px)`
+            'transitionDuration': `${duration * 3}s`,
+            'transform': `translateY(-${number * 30 - (duration * 2 - 6) * 300}px)`
         }
     }
 
