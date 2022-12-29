@@ -11,7 +11,7 @@ import { GameResult } from './game-result.model'
 })
 export class GameResultComponent implements AfterViewInit {
     public gameResults: GameResult[] = []
-    public displayedColumns: string[] = ['nonce', 'timestamp', 'roll', 'clientSeed', 'serverSeed', 'serverSeedHash', 'verify']
+    public displayedColumns: string[] = ['nonce', 'time', 'roll', 'clientSeed', 'serverSeed', 'serverSeedHash', 'verify']
     public dataSource = new MatTableDataSource<GameResult>(this.gameResults)
 
     @ViewChild(MatPaginator) paginator: MatPaginator
