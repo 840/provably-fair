@@ -35,7 +35,7 @@ export class GameService {
     async addGameResults(value: GameResult, delayInMs = 0): Promise<void> {
         this._gameResults.push(value)
         if (this._toggleNoDelay) {
-            await new Promise((resolve) => setTimeout(resolve, delayInMs))  
+            await new Promise(resolve => setTimeout(resolve, delayInMs))  
         }
         this._gameResultsSubject.next(this._gameResults)
     }

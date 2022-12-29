@@ -1,7 +1,7 @@
 import { Component, Input} from '@angular/core';
 import { GameService } from '../game/game.service'
 
-type SlotAnim = {
+type SlotAnimStyle = {
     transitionDuration: string
     transform: string
 }
@@ -13,14 +13,13 @@ type SlotAnim = {
 })
 export class GameDiceComponent {
     public roll: string
-    public rollAnim = [false, false, false, false]
     public slotNumbers = [...Array(10).keys()]
     
     @Input() rollDisabled = false
-    @Input() slotsAnim1: SlotAnim
-    @Input() slotsAnim2: SlotAnim
-    @Input() slotsAnim3: SlotAnim
-    @Input() slotsAnim4: SlotAnim
+    @Input() slotsAnim1: SlotAnimStyle
+    @Input() slotsAnim2: SlotAnimStyle
+    @Input() slotsAnim3: SlotAnimStyle
+    @Input() slotsAnim4: SlotAnimStyle
 
     constructor(private gameService: GameService) {}
 
@@ -35,51 +34,35 @@ export class GameDiceComponent {
     }
 
     async playAnim(): Promise<void> {
-        this.slotsAnim1 = {
-            'transitionDuration': `4s`,
-            'transform': `translateY(-${parseInt(this.roll[0]) * 30 + 1200}px)`
-        }
-
-        this.slotsAnim2 = {
-            'transitionDuration': `3s`,
-            'transform': `translateY(-${parseInt(this.roll[1]) * 30 + 1200}px)`
-        }
-
-        this.slotsAnim3 = {
-            'transitionDuration': `2s`,
-            'transform': `translateY(-${parseInt(this.roll[2]) * 30 + 1200}px)`
-        }
-
-        this.slotsAnim4 = {
-            'transitionDuration': `1s`,
-            'transform': `translateY(-${parseInt(this.roll[3]) * 30 + 1200}px)`
-        }
-
+        this.slotsAnim1 = this.playAnimStyle(4, parseInt(this.roll[0]))
+        this.slotsAnim2 = this.playAnimStyle(3, parseInt(this.roll[1]))
+        this.slotsAnim3 = this.playAnimStyle(2, parseInt(this.roll[2]))
+        this.slotsAnim4 = this.playAnimStyle(1, parseInt(this.roll[3]))
+        
         this.toggleRollButton()
-        await new Promise((resolve) => setTimeout(resolve, 4000))
+        await new Promise(resolve => setTimeout(resolve, 4000))
         this.resetAnim()
         this.toggleRollButton()
-    }    
+    }
 
     async resetAnim(): Promise<void> {
-        this.slotsAnim1 = {
-            'transitionDuration': `0s`,
-            'transform': `translateY(-${parseInt(this.roll[0]) * 30 + 300}px)`
-        }
+        this.slotsAnim1 = this.resetAnimStyle(parseInt(this.roll[0]))
+        this.slotsAnim2 = this.resetAnimStyle(parseInt(this.roll[1]))
+        this.slotsAnim3 = this.resetAnimStyle(parseInt(this.roll[2]))
+        this.slotsAnim4 = this.resetAnimStyle(parseInt(this.roll[3]))
+    }
 
-        this.slotsAnim2 = {
-            'transitionDuration': `0s`,
-            'transform': `translateY(-${parseInt(this.roll[1]) * 30 + 300}px)`
+    playAnimStyle(duration: number, number: number): SlotAnimStyle {
+        return {
+            'transitionDuration': `${duration}s`,
+            'transform': `translateY(-${number * 30 - (duration - 4) * 300}px)`
         }
+    }
 
-        this.slotsAnim3 = {
+    resetAnimStyle(number: number): SlotAnimStyle {
+        return {
             'transitionDuration': `0s`,
-            'transform': `translateY(-${parseInt(this.roll[2]) * 30 + 300}px)`
-        }
-
-        this.slotsAnim4 = {
-            'transitionDuration': `0s`,
-            'transform': `translateY(-${parseInt(this.roll[3]) * 30 + 300}px)`
+            'transform': `translateY(-${number * 30 + 2100}px)`
         }
     }
 

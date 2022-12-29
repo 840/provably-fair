@@ -4,12 +4,12 @@
     grid-template-rows: 1fr 1fr;
     grid-template-areas: 
         "reel1 reel2 dot reel3 reel4"
-        "buttons buttons buttons buttons buttons";
+        ". . buttons . .";
     padding-top: 100px;
     padding-left: 400px;
     padding-right: 400px;
     row-gap: 3rem;
-    column-gap: 1.5rem;
+    column-gap: 5px;
 }
 
 .dice-slot-buttons {
@@ -17,17 +17,17 @@
 }
 
 .dice-slot-reel {
-    border: 1px;
-    border-style: solid;
+    border: 0.1em solid rgba(0, 0, 0, 0.38);
     padding: 1rem;
     overflow-y: hidden;
     margin: 0 auto;
     height: 30px;
+    width: 20px;
 }
 
 .dice-slot {
     font-size: xx-large;
-    transform: translateY(-300px);
+    transform: translateY(-2400px);
     transition: transform 1s ease-in-out;
 }
 
@@ -41,8 +41,8 @@
     padding: 1rem;
     overflow-y: hidden;
     margin: 0 auto;
-    margin-left: 10px;
     height: 30px;
+    width: 5px;
 }
 
 @media only screen and (max-width: 550px) {
@@ -57,7 +57,6 @@
         padding-left: 0rem;
         padding-right: 400px;
         row-gap: 3rem;
-        column-gap: 1rem;
-        text-align: center;
+        column-gap: 5px;
     }
 }
