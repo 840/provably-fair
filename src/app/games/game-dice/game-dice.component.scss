@@ -4,12 +4,16 @@
     grid-template-rows: 1fr 1fr;
     grid-template-areas: 
         "reel1 reel2 dot reel3 reel4"
-        ". . buttons . .";
+        ". toggles . buttons .";
     padding-top: 100px;
     padding-left: 400px;
     padding-right: 400px;
     row-gap: 3rem;
     column-gap: 5px;
+}
+
+.dice-slot-toggles {
+    grid-area: toggles
 }
 
 .dice-slot-buttons {

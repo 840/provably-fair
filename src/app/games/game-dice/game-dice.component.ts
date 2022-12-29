@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core'
 import { GameService } from '../game/game.service'
 
 type SlotAnimStyle = {
@@ -12,9 +12,20 @@ type SlotAnimStyle = {
     styleUrls: ['./game-dice.component.scss']
 })
 export class GameDiceComponent {
-    public roll: string
-    public slotNumbers = [...Array(10).keys()]
+    private readonly slotSize = 30
+    private readonly reelSize = 300
+    private readonly reelCountPerGroup = 9
+    private readonly fastModeSpeed = 1
+    private readonly normalModeSpeed = 4
     
+    public readonly slotNumbers = [...Array(10).keys()]
+    public readonly reelCountPerGroupArray = [...Array(this.reelCountPerGroup + 2).keys()]
+    
+    public roll: string
+
+    public fastMode = false
+    private fastModeModifier = this.normalModeSpeed
+
     @Input() rollDisabled = false
     @Input() slotsAnim1: SlotAnimStyle
     @Input() slotsAnim2: SlotAnimStyle
@@ -28,7 +39,7 @@ export class GameDiceComponent {
     }
 
     playGame(): void {
-        const rollNumber = Math.ceil(this.gameService.playGame(4000).roll * 100).toString()
+        const rollNumber = Math.ceil(this.gameService.playGame(1000 * this.fastModeModifier).roll * 100).toString()
         this.roll = rollNumber.padStart(4, '0')
         this.playAnim()
     }
@@ -40,7 +51,7 @@ export class GameDiceComponent {
         this.slotsAnim4 = this.playAnimStyle(1, parseInt(this.roll[3]))
         
         this.toggleRollButton()
-        await new Promise(resolve => setTimeout(resolve, 4000))
+        await new Promise(resolve => setTimeout(resolve, 1000 * this.fastModeModifier))
         this.resetAnim()
         this.toggleRollButton()
     }
@@ -53,17 +64,28 @@ export class GameDiceComponent {
     }
 
     playAnimStyle(duration: number, number: number): SlotAnimStyle {
+        this.fastMode ? duration = this.fastModeSpeed : duration = this.normalModeSpeed
+        const translateModifier = this.fastMode
+            ? `translateY(-${number * this.slotSize}px)`
+            : `translateY(-${number * this.slotSize - (duration - this.normalModeSpeed) * this.reelSize}px)`
         return {
             'transitionDuration': `${duration}s`,
-            'transform': `translateY(-${number * 30 - (duration - 4) * 300}px)`
+            'transform': translateModifier
         }
     }
 
     resetAnimStyle(number: number): SlotAnimStyle {
         return {
             'transitionDuration': `0s`,
-            'transform': `translateY(-${number * 30 + 2100}px)`
+            'transform': `translateY(-${number * this.slotSize + this.reelSize * this.reelCountPerGroup}px)`
         }
+    }
+
+    protected toggleFastMode(): void {
+        this.fastMode
+            ? this.fastModeModifier = this.normalModeSpeed
+            : this.fastModeModifier = this.fastModeSpeed
+        this.fastMode = !this.fastMode
     }
 
     private toggleRollButton(): void {
