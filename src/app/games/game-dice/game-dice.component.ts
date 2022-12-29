@@ -1,19 +1,26 @@
 import { Component, Input} from '@angular/core';
 import { GameService } from '../game/game.service'
+
+type SlotAnim = {
+    transitionDuration: string
+    transform: string
+}
+
 @Component({
     selector: 'app-game-dice',
     templateUrl: './game-dice.component.html',
     styleUrls: ['./game-dice.component.scss']
 })
 export class GameDiceComponent {
-    public roll = '----'
+    public roll: string
     public rollAnim = [false, false, false, false]
     public slotNumbers = [...Array(10).keys()]
     
-    @Input() slotsAnim1: { transitionDuration: string; transform: string }
-    @Input() slotsAnim2: { transitionDuration: string; transform: string }
-    @Input() slotsAnim3: { transitionDuration: string; transform: string }
-    @Input() slotsAnim4: { transitionDuration: string; transform: string }
+    @Input() rollDisabled = false
+    @Input() slotsAnim1: SlotAnim
+    @Input() slotsAnim2: SlotAnim
+    @Input() slotsAnim3: SlotAnim
+    @Input() slotsAnim4: SlotAnim
 
     constructor(private gameService: GameService) {}
 
@@ -48,9 +55,10 @@ export class GameDiceComponent {
             'transform': `translateY(-${parseInt(this.roll[3]) * 30 + 1200}px)`
         }
 
+        this.toggleRollButton()
         await new Promise((resolve) => setTimeout(resolve, 4000))
-
         this.resetAnim()
+        this.toggleRollButton()
     }    
 
     async resetAnim(): Promise<void> {
@@ -73,5 +81,9 @@ export class GameDiceComponent {
             'transitionDuration': `0s`,
             'transform': `translateY(-${parseInt(this.roll[3]) * 30 + 300}px)`
         }
+    }
+
+    private toggleRollButton(): void {
+        this.rollDisabled = !this.rollDisabled
     }
 }

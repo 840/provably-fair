@@ -31,6 +31,6 @@
         </div>
     </div>
     <div class="dice-slot-buttons">
-        <button mat-flat-button color="primary" (click)="playGame()">Roll!</button>
+        <button mat-flat-button color="primary" [disabled]="rollDisabled" (click)="playGame()">Roll!</button>
     </div>
 </div>
