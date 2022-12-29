@@ -48,7 +48,6 @@ export class ProvablyFairService {
                 second: 'numeric'
             })
         }
-
         this.newGame()
         return result
     }

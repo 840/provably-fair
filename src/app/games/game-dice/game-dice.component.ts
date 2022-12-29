@@ -22,7 +22,7 @@ export class GameDiceComponent {
     }
 
     playGame(): void {
-        const rollNumber = Math.ceil(this.gameService.playGame().roll * 100).toString()
+        const rollNumber = Math.ceil(this.gameService.playGame(4000).roll * 100).toString()
         this.roll = rollNumber.padStart(4, '0')
         this.playAnim()
     }

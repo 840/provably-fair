@@ -17,8 +17,9 @@ import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/mat
 import { MatInputModule } from '@angular/material/input'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatPaginatorModule } from '@angular/material/paginator'
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { ToolbarComponent } from './toolbar/toolbar.component'
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
         MatInputModule,
         MatGridListModule,
         MatPaginatorModule,
+        MatSlideToggleModule,
         MatToolbarModule
     ]
 })

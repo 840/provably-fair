@@ -39,7 +39,9 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator showFirstLastButtons 
-            [pageSizeOptions]="[10, 25, 50, 100]" 
-            aria-label="Select page">
-</mat-paginator>
+<mat-toolbar>
+    <mat-toolbar-row>
+        <mat-slide-toggle [checked]="toggleDelay" (change)="toggleNoDelay()">No delay</mat-slide-toggle>
+        <mat-paginator showFirstLastButtons [pageSizeOptions]="[10, 25, 50, 100]" aria-label="Select page"></mat-paginator>
+    </mat-toolbar-row>
+</mat-toolbar>

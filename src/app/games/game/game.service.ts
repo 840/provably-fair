@@ -11,6 +11,8 @@ export class GameService {
     private _gameSubject = new Subject<Game>()
     private _gameResults: GameResult[] = []
     private _gameResultsSubject = new Subject<GameResult[]>()
+    private _toggleNoDelay = false
+    private _toggleNoDelaySubject = new Subject<boolean>
 
     constructor(private provablyFairService: ProvablyFairService) {}
 
@@ -22,18 +24,29 @@ export class GameService {
         return this._gameResultsSubject.asObservable()
     }
 
+    subscribeToggleNoDelay(): Observable<boolean> {
+        return this._toggleNoDelaySubject.asObservable()
+    }
+
     getGameResults(): GameResult[] {
         return this._gameResults
     }
 
-    addGameResults(value: GameResult): void {
+    async addGameResults(value: GameResult, delayInMs = 0): Promise<void> {
         this._gameResults.push(value)
+        if (this._toggleNoDelay) {
+            await new Promise((resolve) => setTimeout(resolve, delayInMs))  
+        }
         this._gameResultsSubject.next(this._gameResults)
     }
 
-    playGame(): GameResult {
+    toggleNoDelay(): void {
+        this._toggleNoDelay = !this._toggleNoDelay
+    }
+
+    playGame(delayInMs: number): GameResult {
         const result = this.provablyFairService.playGame()
-        this.addGameResults(result)
+        this.addGameResults(result, delayInMs)
         return result
     }
 
