@@ -22,67 +22,56 @@ export class GameDiceComponent {
     }
 
     playGame(): void {
-        const rollNumber = (this.gameService.playGame().roll * 100)
-        if (rollNumber < 10) {
-            this.roll = '000' + rollNumber.toString()
-        } else if (rollNumber < 100) {
-            this.roll = '00' + rollNumber.toString()
-        } else if (rollNumber < 1000) {
-            this.roll = '0' + rollNumber.toString()
-        } else {
-            this.roll = rollNumber.toString()
-        }
+        const rollNumber = Math.ceil(this.gameService.playGame().roll * 100).toString()
+        this.roll = rollNumber.padStart(4, '0')
         this.playAnim()
     }
 
-    async playAnim(duration = 1): Promise<void> {
+    async playAnim(): Promise<void> {
         this.slotsAnim1 = {
-            'transitionDuration': `${duration > 0 ? duration : 1}s`,
-            'transform': `translateY(0)`
+            'transitionDuration': `4s`,
+            'transform': `translateY(-${parseInt(this.roll[0]) * 30 + 1200}px)`
         }
 
         this.slotsAnim2 = {
-            'transitionDuration': `${duration > 0 ? duration : 1}s`,
-            'transform': `translateY(0)`
+            'transitionDuration': `3s`,
+            'transform': `translateY(-${parseInt(this.roll[1]) * 30 + 1200}px)`
         }
 
         this.slotsAnim3 = {
-            'transitionDuration': `${duration > 0 ? duration : 1}s`,
-            'transform': `translateY(0)`
+            'transitionDuration': `2s`,
+            'transform': `translateY(-${parseInt(this.roll[2]) * 30 + 1200}px)`
         }
 
         this.slotsAnim4 = {
-            'transitionDuration': `${duration > 0 ? duration : 1}s`,
-            'transform': `translateY(0)`
+            'transitionDuration': `1s`,
+            'transform': `translateY(-${parseInt(this.roll[3]) * 30 + 1200}px)`
         }
 
-        await new Promise((resolve) => setTimeout(resolve, duration + 1 * 1000))
+        await new Promise((resolve) => setTimeout(resolve, 4000))
 
-        this.stopAnim()
+        this.resetAnim()
     }    
 
-    stopAnim(): void {
-        const duration = 1
-        
+    async resetAnim(): Promise<void> {
         this.slotsAnim1 = {
-            'transitionDuration': `${duration > 0 ? duration : 1}s`,
+            'transitionDuration': `0s`,
             'transform': `translateY(-${parseInt(this.roll[0]) * 30 + 300}px)`
         }
 
         this.slotsAnim2 = {
-            'transitionDuration': `${duration > 0 ? duration : 1}s`,
+            'transitionDuration': `0s`,
             'transform': `translateY(-${parseInt(this.roll[1]) * 30 + 300}px)`
         }
 
         this.slotsAnim3 = {
-            'transitionDuration': `${duration > 0 ? duration : 1}s`,
+            'transitionDuration': `0s`,
             'transform': `translateY(-${parseInt(this.roll[2]) * 30 + 300}px)`
         }
 
         this.slotsAnim4 = {
-            'transitionDuration': `${duration > 0 ? duration : 1}s`,
+            'transitionDuration': `0s`,
             'transform': `translateY(-${parseInt(this.roll[3]) * 30 + 300}px)`
         }
-        
     }
 }
