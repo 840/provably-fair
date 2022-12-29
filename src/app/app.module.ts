@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { ServerComponent } from './server/server.component'
 import { ClientComponent } from './client/client.component'
-import { GameResultComponent } from './games/game-result/game-result.component'
+import { GameResultComponent, GameResultValidateRollComponent } from './games/game-result/game-result.component'
 import { GameDiceComponent } from './games/game-dice/game-dice.component'
 import { GameInputComponent } from './games/game-input/game-input.component'
 import { GameNavComponent } from './games/game-nav/game-nav.component'
@@ -19,6 +20,8 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 import { ToolbarComponent } from './toolbar/toolbar.component'
 
 
@@ -30,6 +33,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component'
         GameInputComponent,
         GameNavComponent,
         GameResultComponent,
+        GameResultValidateRollComponent,
         ToolbarComponent,
         GameDiceComponent
     ],
@@ -38,6 +42,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component'
     ],
     bootstrap: [AppComponent],
     imports: [
+        CommonModule,
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
@@ -50,6 +55,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component'
         MatGridListModule,
         MatPaginatorModule,
         MatSlideToggleModule,
+        MatDialogModule,
+        MatSnackBarModule,
         MatToolbarModule
     ]
 })

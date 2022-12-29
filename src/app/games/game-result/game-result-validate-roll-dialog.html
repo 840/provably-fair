@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Validate roll #{{ data.nonce }}</h1>
+<div mat-dialog-content>
+    <ng-container *ngIf="data.serverSeedHash === serverSeedEncryption(data.serverSeed); then validRoll; else invalidRoll"></ng-container>
+    <div mat-dialog-actions align="end">
+        <button mat-button (click)="copyToClipboard(generateCodeSnippet(data.clientSeed, data.serverSeed, data.nonce))" matTooltip="Copy code to clipboard">Copy code</button>
+        <button mat-button mat-dialog-close>Close</button>
+    </div>
+</div>
+
+<ng-template #validRoll>
+    <div>&#10003; Your roll <b>{{ data.roll }}</b> is cryptographically <b style="color: green">valid</b>!</div>
+    <ng-container *ngTemplateOutlet="text"></ng-container>
+</ng-template>
+
+<ng-template #invalidRoll>
+    <div>&#10003; Your roll, <b>{{ data.roll }}</b>, is cryptographically <b style="color: red">invalid</b>!</div>
+    <ng-container *ngTemplateOutlet="text"></ng-container>
+</ng-template>
+
+<ng-template #text>
+    <div>&#10003; You can independently validate this by hashing <b>{{ data.serverSeed }}</b> with SHA256 and compare it with the hashed seed.</div>
+    <div>&#10003; SHA256(<b>{{ data.serverSeed }}</b>) = <b>{{ serverSeedEncryption(data.serverSeed) }}</b></div>
+    <div>&#10003; Using the following script inside a Javascript environment will provide the same result: </div>
+    <pre [innerHTML]="generateCodeSnippet(data.clientSeed, data.serverSeed, data.nonce)"></pre>
+</ng-template>

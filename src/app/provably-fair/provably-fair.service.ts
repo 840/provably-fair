@@ -37,7 +37,7 @@ export class ProvablyFairService {
             clientSeed: this._clientSeed,
             serverSeed: this._serverSeed,
             nonce: this._nonce,
-            roll: this.roll(),
+            roll: this.roll(this._clientSeed, this._nonce, this._serverSeed),
             serverSeedHash: this.getServerSeedHash(),
             date: (new Date()).toLocaleString('en-GB', {
                 hour: 'numeric',
@@ -48,9 +48,10 @@ export class ProvablyFairService {
         return result
     }
 
-    private roll(): number {
-        const input = `${this._clientSeed}-${this._nonce}`
-        const hash = HmacSHA512(input, this._serverSeed).toString(enc.Hex)
+    public roll(clientSeed: string, nonce: number, serverSeed: string): number {
+        const input = `${clientSeed}-${nonce}`
+        console.log(input)
+        const hash = HmacSHA512(input, serverSeed).toString(enc.Hex)
 
         let index = 0
         let roll = 0
