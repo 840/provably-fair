@@ -9,20 +9,16 @@ import { GameService } from '../game/game.service'
 })
     
 export class GameInputComponent implements OnInit {
-    public clientSeed: string
+    protected clientSeed: string
 
-    constructor(private gameService: GameService) { }
+    constructor(private _gameService: GameService) { }
 
-    ngOnInit() {
+    public ngOnInit() {
         this.subscribeGame()
     }
 
-    debug(): void {
-        this.gameService.debug()
-    }
-
-    subscribeGame(): void {
-        this.gameService.subscribeGame()
+    private subscribeGame(): void {
+        this._gameService.subscribeGame()
             .subscribe((value: Game) => this.clientSeed = value.clientSeed)
     }
 }

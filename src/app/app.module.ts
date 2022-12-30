@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { ServerComponent } from './server/server.component'
 import { ClientComponent } from './client/client.component'
-import { GameResultComponent, GameResultValidateRollComponent } from './games/game-result/game-result.component'
+import { GameResultComponent } from './games/game-result/game-result.component'
+import { GameResultValidateRollComponent } from './games/game-result/game-result-validate/game-result-validate.component'
 import { GameDiceComponent } from './games/game-dice/game-dice.component'
 import { GameInputComponent } from './games/game-input/game-input.component'
 import { GameNavComponent } from './games/game-nav/game-nav.component'
@@ -21,7 +22,8 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatDialogModule } from '@angular/material/dialog'
-import { MatSnackBarModule } from '@angular/material/snack-bar'; 
+import { MatIconModule } from '@angular/material/icon'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { ToolbarComponent } from './toolbar/toolbar.component'
 
 
@@ -56,6 +58,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component'
         MatPaginatorModule,
         MatSlideToggleModule,
         MatDialogModule,
+        MatIconModule,
         MatSnackBarModule,
         MatToolbarModule
     ]

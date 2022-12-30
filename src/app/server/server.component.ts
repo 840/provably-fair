@@ -19,15 +19,15 @@ import { ProvablyFairService } from '../provably-fair/provably-fair.service'
 export class ServerComponent implements OnInit {
     constructor(private provablyFairService: ProvablyFairService) { }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         this.provablyFairService.newGame()
     }
 
-    getServerSeedHash(): string {
+    protected getServerSeedHash(): string {
         return this.provablyFairService.getServerSeedHash()
     }
 
-    getNonce(): number {
+    protected getNonce(): number {
         return this.provablyFairService.getNonce()
     }
 }

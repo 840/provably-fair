@@ -1,11 +1,12 @@
-import { Component, ViewChild, AfterViewInit, Input, Inject } from '@angular/core'
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { Component, ViewChild, AfterViewInit, Input } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTable, MatTableDataSource } from '@angular/material/table'
 import { GameService } from '../game/game.service'
-import { SHA256 } from 'crypto-js'
 import { GameResult } from './game-result.model'
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { LocalStorageService } from 'src/app/local-storage/local-storage.service'
+import { GameResultValidateRollComponent } from './game-result-validate/game-result-validate.component'
 
 
 @Component({
@@ -14,107 +15,83 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     styleUrls: ['./game-result.component.scss']
 })
 export class GameResultComponent implements AfterViewInit {
-    public gameResults: GameResult[] = []
-    public displayedColumns: string[] = ['nonce', 'time', 'roll', 'clientSeed', 'serverSeed', 'serverSeedHash', 'verify']
-    public dataSource = new MatTableDataSource<GameResult>(this.gameResults)
+    protected gameResults: GameResult[] = []
+    protected displayedColumns: string[] = ['nonce', 'time', 'roll', 'clientSeed', 'serverSeed', 'serverSeedHash', 'verify']
+    protected dataSource = new MatTableDataSource<GameResult>(this.gameResults)
+    protected hasResults: boolean
 
     @ViewChild(MatPaginator) paginator: MatPaginator
     @ViewChild(MatTable) table: MatTable<Element>
     @Input() toggleDelay: boolean
 
-    constructor(private gameService: GameService, public dialog: MatDialog) { }
+    constructor(
+        private _gameService: GameService,
+        private _localStorage: LocalStorageService,
+        private _snackBar: MatSnackBar,
+        protected dialog: MatDialog
+    ) { }
 
-    ngAfterViewInit() {
+    public ngAfterViewInit() {
+        const savedData = this._localStorage.getData('gameResults')
+
         this.subscribeGameResults()
         this.toggleNoDelay()
+
+        if (typeof savedData === 'string') {
+            JSON.parse(savedData).forEach((gameResult: GameResult) => {
+                this._gameService.addGameResults(gameResult)
+            })
+        }
+
+        this.hasResults = this._gameService.getGameResults().length <= 0
+        this._gameService.setNonce(this._gameService.getGameResults().length + 1)
         this.dataSource.paginator = this.paginator
     }
 
-    validateRollDialog(data: GameResult): void {
+    protected validateRollDialog(data: GameResult): void {
         this.dialog.open(GameResultValidateRollComponent, { data })
     }
 
-    toggleNoDelay(): void {
-        this.gameService.toggleNoDelay()
+    protected toggleNoDelay(): void {
+        this._gameService.toggleNoDelay()
     }
 
-    subscribeGameResults(): void {
-        this.gameService.subscribeGameResults()
+    protected deleteResults(): void {
+        const snackBarRef = this._snackBar.open('Results wiped!', 'Undo', { duration: 15000 })
+        const savedData = this._localStorage.getData('gameResults')
+        const checkPoint: GameResult[] = []
+
+        if (typeof savedData === 'string') {
+            JSON.parse(savedData).forEach((gameResult: GameResult) => {
+                checkPoint.push(gameResult)
+            })
+        }
+
+        this._gameService.deleteGameResults()
+        this._gameService.setNonce(1)
+        this._localStorage.removeData('gameResults')
+
+        snackBarRef.onAction().subscribe(() => {
+            this._localStorage.saveData('gameResults', JSON.stringify(checkPoint))
+            checkPoint.forEach((gameResult: GameResult) => {
+                this._gameService.addGameResults(gameResult)
+            })
+            this._gameService.setNonce(checkPoint.length)
+        })
+    }
+
+    private subscribeGameResults(): void {
+        this._gameService.subscribeGameResults()
             .subscribe((value: GameResult[]) => {
                 this.gameResults = [...value].reverse()
                 this.dataSource.data = this.gameResults
+                this.hasResults = this._gameService.getGameResults().length <= 0
                 this.table.renderRows()
             })
     }
 
-    subscribeToggleNoDelay(): void {
-        this.gameService.subscribeToggleNoDelay()
+    private subscribeToggleNoDelay(): void {
+        this._gameService.subscribeToggleNoDelay()
             .subscribe((value: boolean) => { this.toggleDelay = value })
-    }
-}
-
-@Component({
-    selector: 'app-game-result-validate-roll-dialog',
-    templateUrl: 'game-result-validate-roll-dialog.html'
-})
-export class GameResultValidateRollComponent {
-    constructor(@Inject(MAT_DIALOG_DATA) public data: GameResult, private _snackBar: MatSnackBar) { }
-
-    generateCodeSnippet(clientSeed: string, serverSeed: string, nonce: number): string {
-        return `const crypto = require('crypto')
-
-const clientSeed = '${clientSeed}'
-const serverSeed = '${serverSeed}'
-const nonce = '${nonce}'
-
-roll('${clientSeed}', '${serverSeed}', '${nonce}')
-
-function roll(clientSeed, serverSeed, nonce) {
-    const input = clientSeed + '-' + nonce
-    const hash = crypto.createHmac('sha512', serverSeed).update(input).digest('hex')
-
-    let index = 0
-    let roll = 0
-
-    do {
-        index++
-        roll = parseInt(hash.substring(index * 5, index * 5 + 5), 16)
-
-        if (index * 5 + 5 > 128) {
-            roll = 99.99
-            break
-        }
-    } while (roll >= Math.pow(10, 6))
-
-    roll %= Math.pow(10, 4)
-    roll /= Math.pow(10, 2)
-
-    console.log('Nonce: ' + nonce)
-    console.log('Client seed: ' + clientSeed)
-    console.log('Server seed: ' + serverSeed)
-    console.log('Server seed (hash): ' + crypto.createHash('sha256').update(serverSeed).digest('hex'))
-    console.log('Roll: ' + roll)
-
-    return roll
-}`
-    }
-
-    copyToClipboard(value: string): void {
-        const selBox = document.createElement('textarea')
-        selBox.style.position = 'fixed'
-        selBox.style.left = '0'
-        selBox.style.top = '0'
-        selBox.style.opacity = '0'
-        selBox.value = value
-        document.body.appendChild(selBox)
-        selBox.focus()
-        selBox.select()
-        document.execCommand('copy')
-        document.body.removeChild(selBox)
-        this._snackBar.open('Copied to clipboard!', undefined, { duration: 2500 })
-    }
-
-    serverSeedEncryption(serverSeed: string): string {
-        return SHA256(serverSeed).toString()
     }
 }

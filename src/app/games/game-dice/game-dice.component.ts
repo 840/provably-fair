@@ -12,19 +12,19 @@ type SlotAnimStyle = {
     styleUrls: ['./game-dice.component.scss']
 })
 export class GameDiceComponent {
-    private readonly slotSize = 30
-    private readonly reelSize = 300
-    private readonly reelCountPerGroup = 9
-    private readonly fastModeSpeed = 1
-    private readonly normalModeSpeed = 4
+    private readonly _slotSize = 30
+    private readonly _reelSize = 300
+    private readonly _reelCountPerGroup = 9
+    private readonly _fastModeSpeed = 1
+    private readonly _normalModeSpeed = 4
     
-    public readonly slotNumbers = [...Array(10).keys()]
-    public readonly reelCountPerGroupArray = [...Array(this.reelCountPerGroup + 2).keys()]
+    protected readonly slotNumbers = [...Array(10).keys()]
+    protected readonly reelCountPerGroupArray = [...Array(this._reelCountPerGroup + 2).keys()]
     
-    public roll: string
+    protected roll: string
 
-    public fastMode = false
-    private fastModeModifier = this.normalModeSpeed
+    protected fastMode = false
+    private _fastModeModifier = this._normalModeSpeed
 
     @Input() rollDisabled = false
     @Input() slotsAnim1: SlotAnimStyle
@@ -32,59 +32,55 @@ export class GameDiceComponent {
     @Input() slotsAnim3: SlotAnimStyle
     @Input() slotsAnim4: SlotAnimStyle
 
-    constructor(private gameService: GameService) {}
-
-    debug(): void {
-        this.gameService.debug()
-    }
-
-    playGame(): void {
-        const rollNumber = Math.ceil(this.gameService.playGame(1000 * this.fastModeModifier).roll * 100).toString()
+    constructor(private _gameService: GameService) { }
+    
+    protected playGame(): void {
+        const rollNumber = Math.ceil(this._gameService.playGame(1000 * this._fastModeModifier).roll * 100).toString()
         this.roll = rollNumber.padStart(4, '0')
         this.playAnim()
     }
 
-    async playAnim(): Promise<void> {
+    private async playAnim(): Promise<void> {
         this.slotsAnim1 = this.playAnimStyle(4, parseInt(this.roll[0]))
         this.slotsAnim2 = this.playAnimStyle(3, parseInt(this.roll[1]))
         this.slotsAnim3 = this.playAnimStyle(2, parseInt(this.roll[2]))
         this.slotsAnim4 = this.playAnimStyle(1, parseInt(this.roll[3]))
         
         this.toggleRollButton()
-        await new Promise(resolve => setTimeout(resolve, 1000 * this.fastModeModifier))
+        await new Promise(resolve => setTimeout(resolve, 1000 * this._fastModeModifier))
         this.resetAnim()
         this.toggleRollButton()
     }
 
-    async resetAnim(): Promise<void> {
+    private async resetAnim(): Promise<void> {
         this.slotsAnim1 = this.resetAnimStyle(parseInt(this.roll[0]))
         this.slotsAnim2 = this.resetAnimStyle(parseInt(this.roll[1]))
         this.slotsAnim3 = this.resetAnimStyle(parseInt(this.roll[2]))
         this.slotsAnim4 = this.resetAnimStyle(parseInt(this.roll[3]))
     }
 
-    playAnimStyle(duration: number, number: number): SlotAnimStyle {
-        this.fastMode ? duration = this.fastModeSpeed : duration
+    private playAnimStyle(duration: number, number: number): SlotAnimStyle {
+        this.fastMode ? duration = this._fastModeSpeed : duration
         const translateModifier = this.fastMode
-            ? `translateY(-${number * this.slotSize + 5 * this.reelSize}px)`
-            : `translateY(-${number * this.slotSize - (duration - this.normalModeSpeed) * this.reelSize}px)`
+            ? `translateY(-${number * this._slotSize + 5 * this._reelSize}px)`
+            : `translateY(-${number * this._slotSize - (duration - this._normalModeSpeed) * this._reelSize}px)`
         return {
             'transitionDuration': `${duration}s`,
             'transform': translateModifier
         }
     }
 
-    resetAnimStyle(number: number): SlotAnimStyle {
+    private resetAnimStyle(number: number): SlotAnimStyle {
         return {
             'transitionDuration': `0s`,
-            'transform': `translateY(-${number * this.slotSize + this.reelSize * this.reelCountPerGroup}px)`
+            'transform': `translateY(-${number * this._slotSize + this._reelSize * this._reelCountPerGroup}px)`
         }
     }
 
     protected toggleFastMode(): void {
         this.fastMode
-            ? this.fastModeModifier = this.normalModeSpeed
-            : this.fastModeModifier = this.fastModeSpeed
+            ? this._fastModeModifier = this._normalModeSpeed
+            : this._fastModeModifier = this._fastModeSpeed
         this.fastMode = !this.fastMode
     }
 

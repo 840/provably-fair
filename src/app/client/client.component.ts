@@ -18,23 +18,23 @@ export class ClientComponent implements OnInit {
         private gameService: GameService
     ) { }
 
-    ngOnInit() {
+    public ngOnInit() {
         this.subscribeGame()
         this.generateClientSeed()
     }
 
-    onKey(event: KeyboardEvent) {
+    protected onKey(event: KeyboardEvent) {
         if (event.target instanceof HTMLInputElement) {
             this.provablyFairService.setClientSeed(event.target.value)
         }
     }
 
-    generateClientSeed(): void {
+    protected generateClientSeed(): void {
         this.clientSeed = Utils.generateRandomSeed()
         this.provablyFairService.setClientSeed(this.clientSeed)
     }
 
-    subscribeGame(): void {
+    private subscribeGame(): void {
         this.gameService.subscribeGame()
             .subscribe((value: Game) => this.clientSeed = value.clientSeed)
     }

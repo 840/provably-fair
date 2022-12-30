@@ -23,6 +23,10 @@ export class ProvablyFairService {
         return SHA256(this._serverSeed).toString()
     }
 
+    public setNonce(value: number): void {
+        this._nonce = value
+    }
+
     public getNonce(): number {
         return this._nonce
     }
@@ -40,8 +44,12 @@ export class ProvablyFairService {
             roll: this.roll(this._clientSeed, this._nonce, this._serverSeed),
             serverSeedHash: this.getServerSeedHash(),
             date: (new Date()).toLocaleString('en-GB', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
                 hour: 'numeric',
-                minute: 'numeric'
+                minute: 'numeric',
+                second: 'numeric'
             })
         }
         this.newGame()
@@ -50,7 +58,6 @@ export class ProvablyFairService {
 
     public roll(clientSeed: string, nonce: number, serverSeed: string): number {
         const input = `${clientSeed}-${nonce}`
-        console.log(input)
         const hash = HmacSHA512(input, serverSeed).toString(enc.Hex)
 
         let index = 0

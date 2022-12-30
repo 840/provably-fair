@@ -20,6 +20,6 @@
 <ng-template #text>
     <div>&#10003; You can independently validate this by hashing <b>{{ data.serverSeed }}</b> with SHA256 and compare it with the hashed seed.</div>
     <div>&#10003; SHA256(<b>{{ data.serverSeed }}</b>) = <b>{{ serverSeedEncryption(data.serverSeed) }}</b></div>
-    <div>&#10003; Using the following script inside a JavaScript environment will provide the same result: </div>
+    <div>&#10003; Using the following script inside a JavaScript environment will provide the same outcome: </div>
     <pre [innerHTML]="generateCodeSnippet(data.clientSeed, data.serverSeed, data.nonce)"></pre>
 </ng-template>
