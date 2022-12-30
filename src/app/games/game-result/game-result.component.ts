@@ -35,7 +35,6 @@ export class GameResultComponent implements AfterViewInit {
         const savedData = this._localStorage.getData('gameResults')
 
         this.subscribeGameResults()
-        this.toggleNoDelay()
 
         if (typeof savedData === 'string') {
             JSON.parse(savedData).forEach((gameResult: GameResult) => {
@@ -50,10 +49,6 @@ export class GameResultComponent implements AfterViewInit {
 
     protected validateRollDialog(data: GameResult): void {
         this.dialog.open(GameResultValidateRollComponent, { data })
-    }
-
-    protected toggleNoDelay(): void {
-        this._gameService.toggleNoDelay()
     }
 
     protected deleteResults(): void {
@@ -88,10 +83,5 @@ export class GameResultComponent implements AfterViewInit {
                 this.hasResults = this._gameService.getGameResults().length <= 0
                 this.table.renderRows()
             })
-    }
-
-    private subscribeToggleNoDelay(): void {
-        this._gameService.subscribeToggleNoDelay()
-            .subscribe((value: boolean) => { this.toggleDelay = value })
     }
 }
