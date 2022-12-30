@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>Validate roll #{{ data.nonce }}</h1>
 <div mat-dialog-content>
-    <ng-container *ngIf="data.serverSeedHash === serverSeedEncryption(data.serverSeed); then validRoll; else invalidRoll"></ng-container>
+    <ng-container *ngIf="data.hostSeedHash === hostSeedEncryption(data.hostSeed); then validRoll; else invalidRoll"></ng-container>
     <div mat-dialog-actions align="end">
-        <button mat-button (click)="copyToClipboard(generateCodeSnippet(data.clientSeed, data.serverSeed, data.nonce))" matTooltip="Copy code to clipboard">Copy code</button>
+        <button mat-button (click)="copyToClipboard(generateCodeSnippet(data.clientSeed, data.hostSeed, data.nonce))" matTooltip="Copy code to clipboard">Copy code</button>
         <button mat-button mat-dialog-close>Close</button>
     </div>
 </div>
@@ -18,8 +18,8 @@
 </ng-template>
 
 <ng-template #text>
-    <div>&#10003; You can independently validate this by hashing <b>{{ data.serverSeed }}</b> with SHA256 and compare it with the hashed seed.</div>
-    <div>&#10003; SHA256(<b>{{ data.serverSeed }}</b>) = <b>{{ serverSeedEncryption(data.serverSeed) }}</b></div>
+    <div>&#10003; You can independently validate this by hashing <b>{{ data.hostSeed }}</b> with SHA256 and compare it with the hashed seed.</div>
+    <div>&#10003; SHA256(<b>{{ data.hostSeed }}</b>) = <b>{{ hostSeedEncryption(data.hostSeed) }}</b></div>
     <div>&#10003; Using the following script inside a JavaScript environment will provide the same outcome: </div>
-    <pre [innerHTML]="generateCodeSnippet(data.clientSeed, data.serverSeed, data.nonce)"></pre>
+    <pre [innerHTML]="generateCodeSnippet(data.clientSeed, data.hostSeed, data.nonce)"></pre>
 </ng-template>

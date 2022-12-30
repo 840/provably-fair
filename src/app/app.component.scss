@@ -1,19 +1,16 @@
 .container {
+    display: grid;
     margin-left: 5rem;
     margin-right: 5rem;
-    display: grid;
-    height: 90vh;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     grid-template-areas: 
-        "input nav"
-        "result result";
-    row-gap: 5rem;
-    column-gap: 5rem;
+        "input games";
+    min-height: 40vh;
 }
 
 app-toolbar {
-    height: 10vh;
+    min-height: 10vh;
 }
 
 app-game-input {
@@ -21,24 +18,29 @@ app-game-input {
 }
 
 app-game-nav {
-    grid-area: nav;
+    grid-area: games;
 }
 
 app-game-result {
-    grid-area: result;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-@media only screen and (max-width: 550px) {
+@media (max-width: 550px) {
     .container {
-        margin-left: 20px;
-        margin-right: 20px;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        display: grid;
+        margin-left: 0rem;
+        margin-right: 0rem;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(2, 1fr);
         grid-template-areas: 
             "input"
-            "nav"
-            "result";
-        row-gap: 5rem;
-        column-gap: 5rem;
+            "games";
+        min-height: 40vh;
+    }
+
+    app-game-nav {
+        white-space: nowrap;
+        overflow: auto;
     }
 }

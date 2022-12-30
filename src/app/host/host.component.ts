@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ProvablyFairService } from '../provably-fair/provably-fair.service'
 
 @Component({
-    selector: 'app-server',
+    selector: 'app-host',
     template: `
     <mat-form-field>
-        <mat-label>Server seed (hash)</mat-label>
-        <input matInput disabled value="{{ getServerSeedHash() }}">
+        <mat-label>Host seed (hash)</mat-label>
+        <input matInput disabled value="{{ getHostSeedHash() }}">
     </mat-form-field>
 
     <mat-form-field>
@@ -16,15 +16,15 @@ import { ProvablyFairService } from '../provably-fair/provably-fair.service'
   `,
     styles: []
 })
-export class ServerComponent implements OnInit {
+export class HostComponent implements OnInit {
     constructor(private provablyFairService: ProvablyFairService) { }
 
     public ngOnInit(): void {
         this.provablyFairService.newGame()
     }
 
-    protected getServerSeedHash(): string {
-        return this.provablyFairService.getServerSeedHash()
+    protected getHostSeedHash(): string {
+        return this.provablyFairService.getHostSeedHash()
     }
 
     protected getNonce(): number {

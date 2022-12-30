@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { BrowserModule } from '@angular/platform-browser'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { ServerComponent } from './server/server.component'
+import { HostComponent } from './host/host.component'
 import { ClientComponent } from './client/client.component'
 import { GameResultComponent } from './games/game-result/game-result.component'
 import { GameResultValidateRollComponent } from './games/game-result/game-result-validate/game-result-validate.component'
@@ -30,7 +30,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component'
 @NgModule({
     declarations: [
         AppComponent,
-        ServerComponent,
+        HostComponent,
         ClientComponent,
         GameInputComponent,
         GameNavComponent,

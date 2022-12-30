@@ -1,5 +1,5 @@
 export interface Game {
     clientSeed: string
-    serverSeed: string
+    hostSeed: string
     nonce: number
 }

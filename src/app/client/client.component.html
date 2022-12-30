@@ -1,5 +1,4 @@
 <mat-form-field>
-    <mat-label>Client seed</mat-label>
     <input matInput placeholder="Client seed" (keyup)="onKey($event)" value="{{ clientSeed }}">
 </mat-form-field>
 <button mat-flat-button color="primary" (click)="generateClientSeed()">Generate random client seed</button>

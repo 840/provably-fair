@@ -1,0 +1,17 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: 
+        "client"
+        "host";
+    min-height: 100%;
+}
+
+.container-client {
+    grid-area: client;
+}
+
+.container-host {
+    grid-area: host;
+}

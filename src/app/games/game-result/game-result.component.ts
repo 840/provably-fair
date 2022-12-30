@@ -16,7 +16,7 @@ import { GameResultValidateRollComponent } from './game-result-validate/game-res
 })
 export class GameResultComponent implements AfterViewInit {
     protected gameResults: GameResult[] = []
-    protected displayedColumns: string[] = ['nonce', 'time', 'roll', 'clientSeed', 'serverSeed', 'serverSeedHash', 'verify']
+    protected displayedColumns: string[] = ['nonce', 'time', 'roll', 'clientSeed', 'hostSeed', 'hostSeedHash', 'verify']
     protected dataSource = new MatTableDataSource<GameResult>(this.gameResults)
     protected hasResults: boolean
 

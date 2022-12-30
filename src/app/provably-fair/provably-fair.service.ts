@@ -8,7 +8,7 @@ import Utils from '../utils'
 })
 export class ProvablyFairService {
     private _clientSeed: string
-    private _serverSeed: string
+    private _hostSeed: string
     private _nonce = 0
 
     public getClientSeed(): string {
@@ -19,8 +19,8 @@ export class ProvablyFairService {
         this._clientSeed = value
     }
 
-    public getServerSeedHash(): string {
-        return SHA256(this._serverSeed).toString()
+    public getHostSeedHash(): string {
+        return SHA256(this._hostSeed).toString()
     }
 
     public setNonce(value: number): void {
@@ -32,17 +32,17 @@ export class ProvablyFairService {
     }
 
     public newGame(): void {
-        this.generateServerSeed()
+        this.generateHostSeed()
         this.incrementNonce()
     }
 
     public playGame(): GameResult {
         const result = {
             clientSeed: this._clientSeed,
-            serverSeed: this._serverSeed,
+            hostSeed: this._hostSeed,
             nonce: this._nonce,
-            roll: this.roll(this._clientSeed, this._nonce, this._serverSeed),
-            serverSeedHash: this.getServerSeedHash(),
+            roll: this.roll(this._clientSeed, this._nonce, this._hostSeed),
+            hostSeedHash: this.getHostSeedHash(),
             date: (new Date()).toLocaleString('en-GB', {
                 year: 'numeric',
                 month: 'long',
@@ -56,9 +56,9 @@ export class ProvablyFairService {
         return result
     }
 
-    public roll(clientSeed: string, nonce: number, serverSeed: string): number {
+    public roll(clientSeed: string, nonce: number, hostSeed: string): number {
         const input = `${clientSeed}-${nonce}`
-        const hash = HmacSHA512(input, serverSeed).toString(enc.Hex)
+        const hash = HmacSHA512(input, hostSeed).toString(enc.Hex)
 
         let index = 0
         let roll = 0
@@ -79,8 +79,8 @@ export class ProvablyFairService {
         return roll
     }
 
-    private generateServerSeed(): void {
-        this._serverSeed = Utils.generateRandomSeed()
+    private generateHostSeed(): void {
+        this._hostSeed = Utils.generateRandomSeed()
     }
 
     private incrementNonce(): void {

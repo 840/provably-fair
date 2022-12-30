@@ -11,18 +11,18 @@ import { GameResult } from '../game-result.model'
 export class GameResultValidateRollComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public data: GameResult, private _snackBar: MatSnackBar) { }
 
-    protected generateCodeSnippet(clientSeed: string, serverSeed: string, nonce: number): string {
+    protected generateCodeSnippet(clientSeed: string, hostSeed: string, nonce: number): string {
         return `const crypto = require('crypto')
 
 const clientSeed = '${clientSeed}'
-const serverSeed = '${serverSeed}'
+const hostSeed = '${hostSeed}'
 const nonce = '${nonce}'
 
-roll('${clientSeed}', '${serverSeed}', '${nonce}')
+roll('${clientSeed}', '${hostSeed}', '${nonce}')
 
-function roll(clientSeed, serverSeed, nonce) {
+function roll(clientSeed, hostSeed, nonce) {
     const input = clientSeed + '-' + nonce
-    const hash = crypto.createHmac('sha512', serverSeed).update(input).digest('hex')
+    const hash = crypto.createHmac('sha512', hostSeed).update(input).digest('hex')
 
     let index = 0
     let roll = 0
@@ -42,8 +42,8 @@ function roll(clientSeed, serverSeed, nonce) {
 
     console.log('Nonce: ' + nonce)
     console.log('Client seed: ' + clientSeed)
-    console.log('Server seed: ' + serverSeed)
-    console.log('Server seed (hash): ' + crypto.createHash('sha256').update(serverSeed).digest('hex'))
+    console.log('Host seed: ' + hostSeed)
+    console.log('Host seed (hash): ' + crypto.createHash('sha256').update(hostSeed).digest('hex'))
     console.log('Roll: ' + roll)
 
     return roll
@@ -65,7 +65,7 @@ function roll(clientSeed, serverSeed, nonce) {
         this._snackBar.open('Copied to clipboard!', undefined, { duration: 2500 })
     }
 
-    protected serverSeedEncryption(serverSeed: string): string {
-        return SHA256(serverSeed).toString()
+    protected hostSeedEncryption(hostSeed: string): string {
+        return SHA256(hostSeed).toString()
     }
 }
