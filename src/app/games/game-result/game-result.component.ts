@@ -71,7 +71,7 @@ export class GameResultComponent implements AfterViewInit {
             checkPoint.forEach((gameResult: GameResult) => {
                 this._gameService.addGameResults(gameResult)
             })
-            this._gameService.setNonce(checkPoint.length)
+            this._gameService.setNonce(checkPoint.length + 1)
         })
     }
 
