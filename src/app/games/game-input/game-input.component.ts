@@ -14,6 +14,7 @@ export class GameInputComponent implements OnInit {
     constructor(private _gameService: GameService) { }
 
     public ngOnInit() {
+        this._gameService.newGame()
         this.subscribeGame()
     }
 

@@ -44,10 +44,6 @@ Provably fair systems are designed to provide transparency and fairness in onlin
         return roll
     }
 
-## Features
-
-- Client-side example
-
 ## Diagram
 
 ```mermaid

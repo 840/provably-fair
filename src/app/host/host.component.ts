@@ -16,12 +16,8 @@ import { GameService } from '../games/game/game.service'
   `,
     styles: []
 })
-export class HostComponent implements OnInit {
+export class HostComponent {
     constructor(private _gameService: GameService) { }
-
-    public ngOnInit(): void {
-        this._gameService.newGame()
-    }
 
     protected getHostSeedHash(): string {
         return this._gameService.getHostSeedHash()
