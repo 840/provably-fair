@@ -47,7 +47,7 @@ Provably fair systems are designed to provide transparency and fairness in onlin
 ## Diagram
 
 ```mermaid
-    graph TD;
+    flowchart TD;
         ProvablyFairService<-->GameService;
 
         LocalStorageService<-->GameService;
