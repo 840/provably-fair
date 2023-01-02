@@ -8,18 +8,13 @@ import { Game } from './game.model'
 @Injectable({
     providedIn: 'root'
 })
-export class GameService {
+export class GameService extends ProvablyFairService {
     private _gameSubject = new Subject<Game>()
     private _gameResults: GameResult[] = []
     private _gameResultsSubject = new Subject<GameResult[]>()
 
-    constructor(
-        private _provablyFairService: ProvablyFairService,
-        private _localStorage: LocalStorageService
-    ) { }
-        
-    setNonce(value: number): void {
-        this._provablyFairService.setNonce(value)
+    constructor(private _localStorage: LocalStorageService) { 
+        super()
     }
 
     subscribeGame(): Observable<Game> {
@@ -47,7 +42,7 @@ export class GameService {
     }
 
     playGame(delayInMs: number): GameResult {
-        const result = this._provablyFairService.playGame()
+        const result = this.calculateResult()
         this.addGameResults(result, delayInMs)
         return result
     }

@@ -47,3 +47,19 @@ Provably fair systems are designed to provide transparency and fairness in onlin
 ## Features
 
 - Client-side example
+
+## Diagram
+
+```mermaid
+    graph TD;
+        ProvablyFairService<-->GameService;
+
+        LocalStorageService<-->GameService;
+        LocalStorageService-->GameResultComponent;
+
+        GameService<-->HostComponent;
+        GameService-->GameResultComponent;
+        
+        ClientComponent-->GameInputComponent;
+        GameInputComponent-->GameService;
+```

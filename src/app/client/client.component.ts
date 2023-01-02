@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Game } from '../games/game/game.model'
 import { GameService } from '../games/game/game.service'
-import { ProvablyFairService } from '../provably-fair/provably-fair.service'
 import Utils from '../utils'
 
 @Component({
@@ -13,10 +12,7 @@ import Utils from '../utils'
 export class ClientComponent implements OnInit {
     public clientSeed = ''
 
-    constructor(
-        private provablyFairService: ProvablyFairService,
-        private gameService: GameService
-    ) { }
+    constructor(private _gameService: GameService) { }
 
     public ngOnInit() {
         this.subscribeGame()
@@ -25,17 +21,17 @@ export class ClientComponent implements OnInit {
 
     protected onKey(event: KeyboardEvent) {
         if (event.target instanceof HTMLInputElement) {
-            this.provablyFairService.setClientSeed(event.target.value)
+            this._gameService.setClientSeed(event.target.value)
         }
     }
 
     protected generateClientSeed(): void {
         this.clientSeed = Utils.generateRandomSeed()
-        this.provablyFairService.setClientSeed(this.clientSeed)
+        this._gameService.setClientSeed(this.clientSeed)
     }
 
     private subscribeGame(): void {
-        this.gameService.subscribeGame()
+        this._gameService.subscribeGame()
             .subscribe((value: Game) => this.clientSeed = value.clientSeed)
     }
 }

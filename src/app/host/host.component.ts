@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProvablyFairService } from '../provably-fair/provably-fair.service'
+import { GameService } from '../games/game/game.service'
 
 @Component({
     selector: 'app-host',
@@ -17,17 +17,17 @@ import { ProvablyFairService } from '../provably-fair/provably-fair.service'
     styles: []
 })
 export class HostComponent implements OnInit {
-    constructor(private provablyFairService: ProvablyFairService) { }
+    constructor(private _gameService: GameService) { }
 
     public ngOnInit(): void {
-        this.provablyFairService.newGame()
+        this._gameService.newGame()
     }
 
     protected getHostSeedHash(): string {
-        return this.provablyFairService.getHostSeedHash()
+        return this._gameService.getHostSeedHash()
     }
 
     protected getNonce(): number {
-        return this.provablyFairService.getNonce()
+        return this._gameService.getNonce()
     }
 }

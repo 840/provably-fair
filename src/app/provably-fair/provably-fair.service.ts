@@ -36,7 +36,7 @@ export class ProvablyFairService {
         this.incrementNonce()
     }
 
-    public playGame(): GameResult {
+    protected calculateResult(): GameResult {
         const result = {
             clientSeed: this._clientSeed,
             hostSeed: this._hostSeed,
@@ -56,7 +56,7 @@ export class ProvablyFairService {
         return result
     }
 
-    public roll(clientSeed: string, nonce: number, hostSeed: string): number {
+    private roll(clientSeed: string, nonce: number, hostSeed: string): number {
         const input = `${clientSeed}-${nonce}`
         const hash = HmacSHA512(input, hostSeed).toString(enc.Hex)
 
