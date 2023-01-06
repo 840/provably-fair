@@ -50,9 +50,6 @@ Provably fair systems are designed to provide transparency and fairness in onlin
     flowchart TD;
         ProvablyFairService<-->GameService;
 
-        LocalStorageService<-->GameService;
-        LocalStorageService-->GameResultComponent;
-
         GameService<-->HostComponent;
         GameService-->GameResultComponent;
         

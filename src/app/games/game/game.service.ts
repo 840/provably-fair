@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
-import { LocalStorageService } from 'src/app/local-storage/local-storage.service'
 import { ProvablyFairService } from 'src/app/provably-fair/provably-fair.service'
 import { GameResult } from '../game-result/game-result.model'
 import { Game } from './game.model'
@@ -13,7 +12,7 @@ export class GameService extends ProvablyFairService {
     private _gameResults: GameResult[] = []
     private _gameResultsSubject = new Subject<GameResult[]>()
 
-    constructor(private _localStorage: LocalStorageService) { 
+    constructor() { 
         super()
     }
 
@@ -37,7 +36,7 @@ export class GameService extends ProvablyFairService {
     async addGameResults(value: GameResult, delayInMs = 0): Promise<void> {
         this._gameResults.push(value)
         await new Promise(resolve => setTimeout(resolve, delayInMs))
-        this._localStorage.saveData('gameResults', JSON.stringify(this._gameResults))
+        localStorage.setItem('gameResults', JSON.stringify(this._gameResults))
         this._gameResultsSubject.next(this._gameResults)
     }
 

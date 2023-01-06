@@ -5,7 +5,6 @@ import { MatTable, MatTableDataSource } from '@angular/material/table'
 import { GameService } from '../game/game.service'
 import { GameResult } from './game-result.model'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { LocalStorageService } from 'src/app/local-storage/local-storage.service'
 import { GameResultValidateRollComponent } from './game-result-validate/game-result-validate.component'
 
 
@@ -26,13 +25,12 @@ export class GameResultComponent implements AfterViewInit {
 
     constructor(
         private _gameService: GameService,
-        private _localStorage: LocalStorageService,
         private _snackBar: MatSnackBar,
         protected dialog: MatDialog
     ) { }
 
     public ngAfterViewInit() {
-        const savedData = this._localStorage.getData('gameResults')
+        const savedData = localStorage.getItem('gameResults')
 
         this.subscribeGameResults()
 
@@ -53,7 +51,7 @@ export class GameResultComponent implements AfterViewInit {
 
     protected deleteResults(): void {
         const snackBarRef = this._snackBar.open('Results wiped!', 'Undo', { duration: 15000 })
-        const savedData = this._localStorage.getData('gameResults')
+        const savedData = localStorage.getItem('gameResults')
         const checkPoint: GameResult[] = []
 
         if (typeof savedData === 'string') {
@@ -64,10 +62,10 @@ export class GameResultComponent implements AfterViewInit {
 
         this._gameService.deleteGameResults()
         this._gameService.setNonce(1)
-        this._localStorage.removeData('gameResults')
+        localStorage.removeItem('gameResults')
 
         snackBarRef.onAction().subscribe(() => {
-            this._localStorage.saveData('gameResults', JSON.stringify(checkPoint))
+            localStorage.setItem('gameResults', JSON.stringify(checkPoint))
             checkPoint.forEach((gameResult: GameResult) => {
                 this._gameService.addGameResults(gameResult)
             })
