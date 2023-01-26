@@ -1,43 +1,43 @@
 <h3>Results</h3>
-<table mat-table [dataSource]="dataSource">
+<mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="nonce">
-        <th mat-header-cell *matHeaderCellDef> # </th>
-        <td mat-cell *matCellDef="let gameResult"> {{gameResult.nonce}} </td>
+        <mat-header-cell mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let gameResult"> {{gameResult.nonce}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="time">
-        <th mat-header-cell *matHeaderCellDef> Time </th>
-        <td mat-cell *matCellDef="let gameResult"> {{gameResult.date}} </td>
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let gameResult"> {{gameResult.date}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="roll">
-        <th mat-header-cell *matHeaderCellDef> Roll </th>
-        <td mat-cell *matCellDef="let gameResult"> {{gameResult.roll}} </td>
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Roll </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let gameResult"> {{gameResult.roll}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="clientSeed">
-        <th mat-header-cell *matHeaderCellDef> Client seed </th>
-        <td mat-cell *matCellDef="let gameResult"> {{gameResult.clientSeed}} </td>
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Client seed </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let gameResult"> {{gameResult.clientSeed}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="hostSeed">
-        <th mat-header-cell *matHeaderCellDef> Host seed </th>
-        <td mat-cell *matCellDef="let gameResult"> {{gameResult.hostSeed}} </td>
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Host seed </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let gameResult"> {{gameResult.hostSeed}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="hostSeedHash">
-        <th mat-header-cell *matHeaderCellDef> Host seed (hash)</th>
-        <td mat-cell *matCellDef="let gameResult"> {{gameResult.hostSeedHash}} </td>
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Host seed (hash)</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let gameResult"> {{gameResult.hostSeedHash}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="verify">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let gameResult"><button mat-flat-button color="primary" (click)="validateRollDialog(gameResult)">Validate</button></td>
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let gameResult"><button mat-flat-button color="primary" (click)="validateRollDialog(gameResult)">Validate</button></mat-cell>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
 
 <mat-toolbar>
     <mat-toolbar-row>
